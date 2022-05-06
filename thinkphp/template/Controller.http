@@ -1,0 +1,71 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST {% raw %}{{api}}{% endraw %}{{thinkphp.api.add}}
+Content-Type: application/json; charset=utf-8
+X-Platform: www
+X-Version: 0.0.1
+X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDUwMDQ2NDAsImRhdGEiOnsiaWQiOiIyIn19.f0cu2fzyZhJbup2gcutsvuQYM6PGWSJLHZ6imeXKK8I
+
+{
+{%- for item in table.columns %}
+  "{{item.name}}": "{{item.comment}}"{% if not loop.last %},{% endif %}
+{%- endfor %}
+}
+
+###
+POST {% raw %}{{api}}{% endraw %}{{thinkphp.api.getList}}
+Content-Type: application/json; charset=utf-8
+X-Platform: www
+X-Version: 0.0.1
+#X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDUwMDQ2NDAsImRhdGEiOnsiaWQiOiIyIn19.f0cu2fzyZhJbup2gcutsvuQYM6PGWSJLHZ6imeXKK8I
+
+{
+  "page":  1,
+  "size": 10
+}
+
+###
+POST {% raw %}{{api}}{% endraw %}{{thinkphp.api.getById}}
+Content-Type: application/json; charset=utf-8
+X-Platform: www
+X-Version: 0.0.1
+X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDUwMDQ2NDAsImRhdGEiOnsiaWQiOiIyIn19.f0cu2fzyZhJbup2gcutsvuQYM6PGWSJLHZ6imeXKK8I
+
+{
+  "id":  1
+}
+
+###
+POST {% raw %}{{api}}{% endraw %}{{thinkphp.api.updateById}}
+Content-Type: application/json; charset=utf-8
+X-Platform: www
+X-Version: 0.0.1
+X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDUwMDQ2NDAsImRhdGEiOnsiaWQiOiIyIn19.f0cu2fzyZhJbup2gcutsvuQYM6PGWSJLHZ6imeXKK8I
+
+{
+{%- for item in table.columns %}
+  "{{item.name}}": "{{item.comment}}"{% if not loop.last %},{% endif %}
+{%- endfor %}
+}
+
+###
+POST {% raw %}{{api}}{% endraw %}{{thinkphp.api.deleteById}}
+Content-Type: application/json; charset=utf-8
+X-Platform: www
+X-Version: 0.0.1
+X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDUwMDQ2NDAsImRhdGEiOnsiaWQiOiIyIn19.f0cu2fzyZhJbup2gcutsvuQYM6PGWSJLHZ6imeXKK8I
+
+{
+  "id":  3
+}
+
+###
+
+
+
+
