@@ -16,7 +16,7 @@ use app\validate\{{thinkphp.validate}};
 /**
  * Class {{thinkphp.controller}}
  * @package {{thinkphp.namespace}}
- * @created {{time.fullYear}}-{{time.format_month}}-{{time.date}}
+ * @created {{time.fullYear}}-{{time.format_month}}-{{time.format_date}}
  */
 class {{thinkphp.controller}} extends BaseController
 {
@@ -41,29 +41,21 @@ class {{thinkphp.controller}} extends BaseController
         $params = [
             'keyword' => input('keyword'),
             'page'    => input('page', 1),
-            'size'    => input('size', 20),
-            'status'  => input('status', StatusEnum::PUBLIC)
-        ];
-
-        $field = [
-            {%- for item in table.columns %}
-             // {{item.comment}}
-              "{{item.name}}",
-            {%- endfor %}
+            'size'    => input('size', 20)
         ];
 
         $total = {{thinkphp.model}}::queryWhere($params)->count();
 
         $list = {{thinkphp.model}}::queryWhere($params)
-            ->field($field)
             ->order([
-                'order_value' => 'desc'
+                'order_value' => 'desc',
+                'create_time' => 'desc'
             ])
             ->page($params['page'], $params['size'])
             ->select();
 
         return [
-            'list' => $list,
+            'list'  => $list,
             'total' => $total
         ];
     }
@@ -75,23 +67,11 @@ class {{thinkphp.controller}} extends BaseController
         $id              = input('id');
         $current_user_id = request()->userId;
 
-        $field = [
-            {%- for item in table.columns %}
-             // {{item.comment}}
-              "{{item.name}}",
-            {%- endfor %}
-        ];
-
         $result = {{thinkphp.model}}::where([
                 'id'=> $id,
-                'status'=> StatusEnum::PUBLIC
-            ])->field($field)->find();
+            ])->find();
 
         if (!$result) {
-            throw new NotFoundException();
-        }
-
-        if ($result['user_id'] != $current_user_id) {
             throw new NotFoundException();
         }
 
@@ -107,34 +87,28 @@ class {{thinkphp.controller}} extends BaseController
 
         $params          = input('');
 
-        $allowField = [
-            {%- for item in table.columns %}
-              // {{item.comment}}
-              '{{item.name}}',
-            {%- endfor %}
-        ];
-
-
         validate({{thinkphp.validate}}::class)
             ->scene('update')
             ->check($params);
 
         $result = {{thinkphp.model}}::where([
-            'id'=> $params['id'],
-            'status'=> StatusEnum::PUBLIC
-        ])->field($field)->find();find();
+            'id'=> $params['id']
+        ])->find();
 
         if (!$result) {
             throw new NotFoundException();
         }
 
-         if ($result['user_id'] != $current_user_id) {
-             throw new NotFoundException();
-         }
-
          $where = [
-             'id' => $params['id']
+             'id' => $result['id']
          ];
+
+         $allowField = [
+            {%- for item in table.columns %}
+            // {{item.comment}}
+            '{{item.name}}',
+            {%- endfor %}
+        ];
 
          {{thinkphp.model}}::update($params, $where, $allowField);
     }
@@ -148,15 +122,10 @@ class {{thinkphp.controller}} extends BaseController
         $current_user_id = request()->userId;
 
          $result = {{thinkphp.model}}::where([
-            'id'=> $id,
-            'status'=> StatusEnum::PUBLIC
+            'id'=> $id
         ])->find();
 
         if (!$result) {
-            throw new NotFoundException();
-        }
-
-        if ($result['user_id'] != $current_user_id) {
             throw new NotFoundException();
         }
 
@@ -172,15 +141,15 @@ class {{thinkphp.controller}} extends BaseController
         $current_user_id = request()->userId;
 
         $params = [
-            'user_id'        => $current_user_id,
-            // 状态：0不显示/1显示
-            "status"        => input("status", StatusEnum::PUBLIC),
-            // 分类排序
-            "order_value"   => time(),
             {%- for item in table.columns %}
               // {{item.comment}}
               "{{item.name}}"=> input("{{item.name}}", ''),
             {%- endfor %}
+            'user_id'        => $current_user_id,
+            // 状态：0不显示/1显示
+            "status"        => input("status", StatusEnum::PUBLIC),
+            // 分类排序
+            "order_value"   => time()
         ];
 
         validate({{thinkphp.validate}}::class)

@@ -10,6 +10,8 @@ use think\Model;
  * {{table.table_comment}}
  * Class {{thinkphp.model}}
  * @package {{thinkphp.namespace}}
+ * @method $this queryWhere(array|null $where) static 条件查询
+ * @see {{thinkphp.model}}::scopeQueryWhere()
  * @created {{time.fullYear}}-{{time.format_month}}-{{time.date}}
  */
 class {{thinkphp.model}} extends Model
@@ -37,7 +39,7 @@ class {{thinkphp.model}} extends Model
         }
 
         if ($keyword) {
-            $query->where('title', 'like', "%${$keyword}%");
+            $query->whereLike('title', "%{$keyword}%");
         }
     }
 }
