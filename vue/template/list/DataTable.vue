@@ -10,7 +10,7 @@
   {% endraw %}
 
     {% for item in table.columns %}
-    // {{item.comment}}
+    <!-- {{item.comment}} -->
     <el-table-column
       label="{{item.comment or item.name }}"
       align="center"

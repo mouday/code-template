@@ -201,7 +201,13 @@ export default {
 <style lang="less"></style>
 
 <style lang="less" scoped>
+.data-tool{
+  display: flex;
+  justify-content: space-between;
+}
+
 .data-table {
   margin-top: 20px;
 }
 </style>
+
