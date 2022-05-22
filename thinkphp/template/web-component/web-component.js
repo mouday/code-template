@@ -1,5 +1,5 @@
 /**
  * component
- * {{name}}.js
+ * {{params.name}}.js
  */
-import './{{name}}.less'
+import './{{params.name}}.less'
