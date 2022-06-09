@@ -1,5 +1,5 @@
 /**
  * page
- * {{params.name}}.js
+ * {{name}}.js
  */
-import './{{params.name}}.less'
+import './{{name}}.less'
