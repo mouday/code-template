@@ -12,11 +12,11 @@ use think\Model;
  * @package {{thinkphp.namespace}}
  * @method $this queryWhere(array|null $where) static 条件查询
  * @see {{thinkphp.model}}::scopeQueryWhere()
- * @created {{time.fullYear}}-{{time.format_month}}-{{time.date}}
+ * @created {{time.date}}
  */
 class {{thinkphp.model}} extends Model
 {
-    protected $name = 'tb_{{thinkphp.table}}';
+    protected $name = '{{thinkphp.table}}';
 
     // 多对一
     public function user()
